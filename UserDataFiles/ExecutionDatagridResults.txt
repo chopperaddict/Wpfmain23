@@ -1,0 +1,8 @@
+AdventureWorks, 16384, 
+AdventureWorks2019, 344064, 
+IAN1, 39010304, 
+master, 7552, 
+model, 16384, 
+msdb, 40256, 
+NorthWind, 16384, 
+tempdb, 73728, 

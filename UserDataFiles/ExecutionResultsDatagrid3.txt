@@ -1,0 +1,4 @@
+IAN1, 5, System.Byte[], 0, 65536, 1972465664, 27/12/2022 18:00:51, 01/01/1900 00:00:00, 0, 130, C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\ian1.mdf, 904, 
+NorthWind, 6, System.Byte[], 0, 65536, 1627389952, 27/12/2022 18:01:07, 01/01/1900 00:00:00, 0, 150, C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\NorthWind.mdf, 904, 
+AdventureWorks, 7, System.Byte[], 0, 65544, 1627389952, 27/12/2022 18:02:00, 01/01/1900 00:00:00, 0, 150, C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\AdventureWorks.mdf, 904, 
+AdventureWorks2019, 8, System.Byte[], 0, 1073807368, 1971400704, 27/12/2022 18:02:13, 01/01/1900 00:00:00, 0, 140, C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\AdventureWorks2019.mdf, 904, 

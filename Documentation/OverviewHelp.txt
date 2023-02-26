@@ -1,0 +1,28 @@
+The Stored Procedures / SQL Tables Window
+============================
+
+This window really is a Jekyll & Hyde window, providing complex (and very generic) funcionalty for working with both Sql Tables (from Microsoft SQL server) and also extensive access to ALL the Stored Procedures that may exist in your SQL server installation.
+
+Other help files will cover each of these areas in full detail, so right here I just want to explain briefly some of the more important benefits of using this system.
+
+SQL Database Tables
+----------------------
+The most powerful feature of this side of the Windows processing is the fact that it is able to open [ ALL and any accessible Db Tables ] in a special ""Internal" format that handles the fact that most tables will quiite naturally have many different names for the various data items (columns) of data they contain.  This can create mayhem for any application that wants to provide any form of access to these tables (more complex than just viewing them), including CRUD operations such as Add, Update, Delete, which means that internally the SQL code MUST of  course be able to refer to the correct column names for any table or CRUD operations will simply not work.
+
+This is why this system uses the specially designed hybrid column system, which is totally transparent to you as you work with the data.  The DataGrid columns are of course shown with the correct (real) column names, so that you will recognise what the data fields are if you happen  to be a user of SQL scripting in any form, or even if you just use the MSSQL SQL Server Management system to look at your data base files.
+
+Stored procedures
+---------------------
+In a similar manner, the Stored Procedures (henceforward called (SPs) for brevity) employs a similar generic system to access your (SPs) in an easy and standardized way.
+
+You can also actually Execute these Procedures directly from this system, using an Execution method selected from a listbox provided with all available methods supported by the system.
+
+Many of the SP's in this system have a special header line (visible in the SP viewer pane eg: "/* Use Execution Option [6] */") that uniquely identifies which Execution Method should be used, and this is supported by the system, which tracks the currently selected SP in the left hand list, and if it contains one of these identifier lines, it automatically highlights the relevant Execution method you should use in the Execution Method listbox automatically, taking the guesswork out of the execution selection process.
+
+You can of course add  this line to yor own SP's iif  you choose to do so, just ensure that you follow the layout, spacing format and overall length of the example EXACTLY as it has to be parsed in real time by the system to identify the integer value specified at the end (in the []).
+
+The final feature of this part of the system is the Editor Window that allows you to Load and view any selected Script, or to load a NEW Script that is displayed containing a template of a new Stored Procedure.  You can either modify an existing script, or create and save a brand new script.
+
+NB: To be able to do this, the system has to DELETE the original script BEFORE it saves the new (or modified) script.  Quite obviously this presents a potential for the Save operation failing after   the   deletion, and this could result in the total loss of the script concerned.
+
+End of File : StoredProcsHelp.Txt

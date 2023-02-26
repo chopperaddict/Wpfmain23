@@ -1,0 +1,11 @@
+EXECUTION RESULT for SPGETALLDATABASEPATHS
+IAN1
+NorthWind
+AdventureWorks
+AdventureWorks2019
+Dbl-Click this line or hit ESC to Close....
+
+
+
+END OF LISTBOX RESULTS from execution of the Stored Procedure 
+shown above (Courtesy of the WpfMain Generic SQL/S.P Access Application

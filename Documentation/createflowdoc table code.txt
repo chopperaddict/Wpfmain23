@@ -1,0 +1,21 @@
+public FlowDocument CreateFloowDocTable (FlowDocument flowdoc)
+{
+	Table table = new();
+	// Create and add a couple of columns.
+	table . Columns . Add ( new TableColumn ( ) );
+	table . Columns . Add ( new TableColumn ( ) );
+	// Create and add a row group and a couple of rows.
+	table . RowGroups . Add ( new TableRowGroup ( ) );
+	table . RowGroups [ 0 ] . Rows . Add ( new TableRow ( ) );
+	table . RowGroups [ 0 ] . Rows . Add ( new TableRow ( ) );
+
+	// Create four cells initialized with the sample text paragraph.
+	Paragraph padding = new Paragraph(new Run("       "));
+	Paragraph text= new Paragraph(new Run(myFlowDocument.ToString()));
+
+	table . RowGroups [ 0 ] . Rows [ 0 ] . Cells . Add ( new TableCell ( padding ) );
+	table . RowGroups [ 0 ] . Rows [ 0 ] . Cells . Add ( new TableCell ( text ) );
+	FlowDocument flowDoc = new FlowDocument(table);
+	return flowDoc;
+	//IDocumentPaginatorSource idocument = flowDoc as IDocumentPaginatorSource;
+}

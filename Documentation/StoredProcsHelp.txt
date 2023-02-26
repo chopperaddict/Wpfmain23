@@ -1,0 +1,32 @@
+The Stored Procedures Window
+====================
+
+This window really is a Jekyll & Hyde window, providing complex (and very generic) funcionalty for working with both Sql Tables (from Microsoft SQL server) and also extensive access to ALL the Stored Procedures that may exist in your SQL server installation.
+
+Other help files will cover each of these areas in full detail, so right here I just want to explain briefly some of the more important benefits of using this system.
+
+SQL database tables
+----------------------
+ The Window is divided into two main areas for SQL table access, the upper half contains the Datagrid showing ALL records in the currently selected Table, while  the lower half contains a Data Editor panel that allows  you to make changes to the content of the currently selected record.
+ 
+ Changes can of course be saved to the SQL table at any time via the buttons at the right of the Edit panel, which also provide direct access to Adding a new record entirely, and of course, previous and next buttons  to move through the datagrid records. Finally, you can Show/hide the data editor panel to provide a full height datagrid view if required.s 
+ 
+ You can of course click in the datagrid to select anny record, and you can scroll the Datagrid in te usual way.
+ There is a Font Size dropdown that resets the font size of text in the datagrid panel and a SQL table selection dropdown that is disabled in the S.P script view.  The Hilite color dropdown is disabled as it is only available for theS.P Script viewer.
+
+Stored procedures
+---------------------
+This area allows you to view ALL the Stored prcedure scripts in the 'Programability' folder your SQL Server.
+It consists of three seperate windows, at the top left is a List of all the S.P's, at th top right a list of the various Script Execution methods provided by the system, and across the entire bottom of the window is the Rich Text Script Viewer itself, which also highlights  the current 'Search term'.
+
+Visual Items Info:
+
+The Window provides various dropdown Combo boxes at the bottom of the window that are common to both types of display (SP's and Sql Tables).
+
+You can vary the height between the top lists and the lower script viewer by dragging the yellow Spliiter bar up or down.
+
+There is also a Context Menu accessed by right clicking anywhere in the top two areas, which provides many useful options tailored to the current status of the window.
+
+The lower Script Viiewer area is also used to display the results information of all executions performed, and also it hosts the SQL Script Ediitor.
+
+End of File : StoredProcsHelp.Txt

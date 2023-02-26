@@ -1,0 +1,721 @@
+﻿<Window x:Class="Wpfmain.UtilWindows.ScriptViewerWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpfmain.UtilWindows"
+        xmlns:main="clr-namespace:Wpfmain"
+        xmlns:conv="clr-namespace:Wpfmain.Converters"
+        mc:Ignorable="d"
+	  WindowChrome.ResizeGripDirection="BottomRight"
+		MinWidth="900"
+		Topmost="false"
+	  ResizeMode="CanResizeWithGrip"	
+		WindowStartupLocation="CenterOwner"
+        Title="Script Viewer Window" Height="650" Width="700">
+
+	<Window.Resources>
+		<main:ReduceByParamValue2 x:Key="ReduceParam" />
+
+		<ItemsPanelTemplate x:Key="SPNoImageMenu">
+			<!--// Stackpanel controls the background color of  the menu when mouse if over (hihligted)-->
+			<!--and also the overall width of each menu item and its margins -->
+			<StackPanel Margin="0,0,0,0" Background="Green" Width="300">
+			</StackPanel>
+		</ItemsPanelTemplate>
+
+		<ItemsPanelTemplate x:Key="MainNoImageMenu">
+			<!--// Stackpanel controls the background color of  the menu when mouse if over (hihligted)-->
+			<!--and also the overall width of each menu item and its margins -->
+			<StackPanel Margin="0,0,0,0" Background="Green" Width="50">
+			</StackPanel>
+		</ItemsPanelTemplate>
+
+
+	</Window.Resources>
+
+	<Grid x:Name="EditorWin" Background="{StaticResource Black2}" >
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40"/>
+			<!--//Menu-->
+			<RowDefinition Height="55"/>
+			<!--// Header bar-->
+			<RowDefinition Height="*"/>
+			<!--// Editor itself-->
+			<!--<RowDefinition Height="30"/>-->
+			<RowDefinition Height="30"/>
+			<!--//Buttons-->
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" Background="Transparent" Height="30">
+
+			<!--#region menu-->
+
+			<Menu x:Name="Mainmenu"
+							Grid.Row="0" Grid.Column="0"
+							Background="Transparent"
+							FontSize="16"
+							HorizontalAlignment="Left" 
+							Margin="0,-5,0,0"
+							Height="30"
+							Width="480" >
+
+					<!--// ALL WORKING GREAT 13/1/2023-->
+
+					<!--#region Menu #1 - File-->
+
+				<MenuItem x:Name="ScriptMenuFileOpening" Header="File" 
+						Grid.Row="0"
+						FontSize="16"
+						Width="80" 
+						Foreground="{StaticResource Yellow3}"	
+						FontWeight="Bold"
+						HorizontalContentAlignment="Center"
+						MouseEnter="ScriptMenu_MouseEnter"
+						Height="30" >
+					
+					<MenuItem  x:Name="CloseWin"  Header="Close Window" 
+									BorderBrush="White"
+									BorderThickness="1"
+									FontWeight="Normal"
+									Foreground="Yellow"	
+								   Background="Green"
+									HorizontalAlignment="Center"	
+									HorizontalContentAlignment="Center"
+									ToolTip="Close this window down...."
+									Width="280"
+									Height="30"
+									Click="Close_Click">
+					</MenuItem>
+
+					<MenuItem  x:Name="Openfile"  Header="Open Saved file" 
+									BorderBrush="White"
+									BorderThickness="1"
+									FontWeight="Normal"
+									Foreground="Yellow"	
+								   Background="Green"
+									HorizontalAlignment="Center"	
+									HorizontalContentAlignment="Center"
+									ToolTip="Close this window down...."
+									Width="280"
+									Height="30"
+									Click="Open_Click"/>
+
+					<MenuItem  x:Name="Openanyfile"  Header="Open any file" 
+									BorderBrush="White"
+									BorderThickness="1"
+									FontWeight="Normal"
+									Foreground="Yellow"	
+								   Background="Green"
+									HorizontalAlignment="Center"	
+									HorizontalContentAlignment="Center"
+									ToolTip="Close this window down...."
+									Width="280"
+									Height="30"
+									Click="OpenAny_Click"/>
+
+					<MenuItem  x:Name="SaveScriptFile" 
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White0}"
+						Header="Save Script to Sql Server" 
+						Width="280"
+						Height="30"
+						Click="SaveScriptFile_Click"/>
+
+					<MenuItem  x:Name="SaveDataFile" 
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White0}"
+						Header="Save File :" 
+						Width="280"
+						Height="30"
+						Click="SaveDataFiles_Click"/>
+
+					<MenuItem  x:Name="SaveAsDataFile" 
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White0}"
+						Header="Save File As : (to Disk) " 
+						Width="280"
+						Height="30"
+						Click="SaveAsDataFiles_Click"/>
+
+					<MenuItem  x:Name="About" 
+								   BorderBrush="White"
+								   BorderThickness="1"
+									FontWeight="Normal"
+									Foreground="Yellow"
+									Header="About S.Procs/DataGrid View" 
+									ToolTip="Show full information about all of this window's extensive functionality...."
+									Width="280"
+									Height="30"
+									Click="About_Click">
+							<MenuItem.Resources>
+								<Style TargetType="Popup">
+									<Setter Property="Width" Value="500"/>
+								</Style>
+							</MenuItem.Resources>
+
+						</MenuItem>
+				</MenuItem>
+					<!--#endregion #1 File-->
+
+				<MenuItem x:Name="ScriptMenuEditOpening" 
+						Header="Edit" 
+						Foreground="{StaticResource Blue6}"
+						FontWeight="Bold"
+						BorderBrush="White"
+						BorderThickness="1"						
+						Margin="0 0 0 0"
+						MouseEnter="ScriptMenu_MouseEnter"
+						Width="80" 
+						Height="30">
+					<MenuItem.Style>
+						<Style TargetType="{x:Type MenuItem}">
+							<Setter Property="ItemsPanel" Value="{StaticResource MainNoImageMenu}" />
+						</Style>
+					</MenuItem.Style>
+
+					<MenuItem Name="Replace3Tabs"
+						Width="270"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White0}"
+						Header="Reset Tabs to 3 spaces"
+						ToolTip="Adjust layout by replacing tabs with 3 spaces"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="Replace3tabs_click"/>
+
+					<MenuItem Name="Replace4Tabs"
+						Width="270"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White0}"
+						Header="Reset Tabs to 4 spaces"
+						ToolTip="Adjust layout by replacing tabs with 4spaces"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="Replace4tabs_click"/>
+
+						<MenuItem Name="Copy2Clipboard"
+						Width="270"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Copy full file to Clipboard"
+						ToolTip="Adjust layout by replacing tabs with 4spaces"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="CopyToClipboard"/>
+
+						<MenuItem Name="Copyselected2Clipboard"
+						Width="270"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Copy selected text to Clipboard"
+						ToolTip="Copy any currently selected text to the ClipBoard"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="CopyseltextToClipboard"/>
+
+						<MenuItem Name="PastefromClipboard"
+						Width="270"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Add Clipboard data to file"
+						ToolTip="Paste any available 'Text' data available on your ClipBoard to the end of the file"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="PasteFromClipboard"/>
+
+					</MenuItem>
+
+					<!--#region Menu #2 - Views-->
+
+					<!--PreviewMouseLeftButtonDown="ExecShowMainMenu"-->
+				<!--<MenuItem x:Name="viewsmenu" 
+						Header="View" 
+						Foreground="White"
+						FontWeight="Bold"
+						BorderBrush="White"
+						BorderThickness="1"						
+						Margin="0 0 0 0"
+						Width="60" 
+						Height="30">
+					--><!--Click="SphMenu_ViewsMenuOpening">--><!--
+						<MenuItem.Style>
+							<Style TargetType="{x:Type MenuItem}">
+								<Setter Property="ItemsPanel" Value="{StaticResource MainNoImageMenu}" />
+							</Style>
+						</MenuItem.Style>-->
+
+					<!--<MenuItem  x:Name="SaveScriptFile" 
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White0}"
+						Header="Save Script to Sql Server" 
+						Width="280"
+						Height="30"
+						Click="SaveScriptFile_Click"/>
+
+					<MenuItem  x:Name="SaveDataFile" 
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White0}"
+						Header="Save File to Disk" 
+						Width="280"
+						Height="30"
+						Click="SaveDataFiles_Click"/>
+
+				<MenuItem  x:Name="SaveAsDataFile" 
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White0}"
+						Header="Save file to Disk As :" 
+						Width="280"
+						Height="30"
+						Click="SaveAsDataFiles_Click"/>-->
+				<!--</MenuItem>-->
+
+				<!--#endregion #2 Views-->
+	
+					<!--#region Menu #4 - Options-->
+
+				<MenuItem x:Name="ScriptMenuOptsOpening" 
+						Header="Options"
+						Foreground="{StaticResource Red4}"
+						FontWeight="Bold"
+						BorderBrush="White"
+						BorderThickness="1"						
+						MouseEnter="ScriptMenu_MouseEnter"
+						Margin="0 0 0 0"
+						Width="100" 
+						Height="30">
+					<MenuItem.Style>
+							<Style TargetType="{x:Type MenuItem}">
+								<Setter Property="ItemsPanel" Value="{StaticResource MainNoImageMenu}" />
+							</Style>
+						</MenuItem.Style>
+
+					<MenuItem Name="IncreaseFontsize"
+						Width="350"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Increase Font Size"
+						ToolTip="Show Print dialog to allow contents to be printed"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="IncreaseFontsize_click"/>
+
+					<MenuItem Name="decreaseFontsize"
+						Width="350"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Decrease Font Size"
+						ToolTip="Show Print dialog to allow contents to be printed"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="DecreaseFontsize_click"/>
+
+					<MenuItem Name="IncreaseLineheight"
+						Width="350"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Increase Line Height"
+						ToolTip="Show Print dialog to allow contents to be printed"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="IncreaseLineheight_click"/>
+
+					<MenuItem Name="decreaseLineheight"
+						Width="350"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Decrease Line Height"
+						ToolTip="Decrease Line Height"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="decreaseLineheight_click"/>
+
+					<MenuItem Name="PrintNewScript"
+						Width="350"
+						Height="30"
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Print contents of Editor"
+						ToolTip="Show Print dialog to allow contents to be printed"
+						ToolTipService.HorizontalOffset="40"
+						ToolTipService.VerticalOffset="15"
+						ToolTipService.HasDropShadow="True"
+						ToolTipService.Placement="Mouse"
+						ToolTipService.BetweenShowDelay="5000"
+						ToolTipService.InitialShowDelay="2500"
+						Click="printnewscript_click"/>
+
+				</MenuItem>
+					<!--#endregion #3 Options-->
+
+					<!--#region #5 Help-->
+
+				<MenuItem x:Name="ScriptMenuHelpOpening" 
+					Header="Help"
+					Foreground="{StaticResource Green5}"
+					FontWeight="Bold"
+					BorderBrush="White"
+					BorderThickness="1"						
+					MouseEnter="ScriptMenu_MouseEnter"
+					Margin="0 0 0 0"
+					Width="80" 	
+					  Height="30">
+						  
+						  <MenuItem  x:Name="OverallInfo" 
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Overview of this windows functionality" 
+						Width="350"
+						Height="30"
+						Click="Overall_Click"/>
+	
+				<MenuItem  x:Name="UsingSprocs" 
+						BorderBrush="White"
+						BorderThickness="1"
+						FontWeight="Normal"
+						Foreground="{StaticResource White1}"
+						Header="Using the Script/File Access System" 
+						Width="350"
+						Height="30"
+						Click="UsingSprocsPanel"/>
+
+				</MenuItem>
+
+				<!--#endregion #5 help-->
+
+				</Menu>
+		</Border>
+		<!--#endregion menu-->
+	
+		<TextBlock 
+			Grid.Row="1"
+			Height="60" 
+			FontSize="16"
+			Background="{StaticResource Red3}"
+			Foreground="White"
+			Text="This Window allows you to save it's content back to your SQL Server.  You can change the current script, or create a brand new script, and save them to your server"
+			TextWrapping="Wrap" 
+			TextAlignment="Center"
+			Padding="10 4 10 0"/>
+
+		<TextBox x:Name="ScriptTextEditor" 
+				Grid.Row="2"
+				 Margin="5 5 5 60" 
+				 Background="{StaticResource White2}" 
+				 ScrollViewer.CanContentScroll="true"
+				 ScrollViewer.VerticalScrollBarVisibility="Auto"
+				 AcceptsTab="True"
+				 ToolTip="Create/Edit any script  (or other file)"
+				 AcceptsReturn="true"
+				 TextChanged="EditorTxtChanged"
+				 Padding="10 0 10 0"
+				 TextAlignment="Left"
+				 TextWrapping="Wrap"
+				 FontSize="18"
+				Visibility="Collapsed"
+				 Foreground="Black"/>
+
+		<RichTextBox x:Name="RTextEditor"
+					 Grid.Row="2" VerticalAlignment="Top"
+					 Background="{StaticResource White4}"
+					 Foreground="Black"
+					 VerticalScrollBarVisibility="Visible"
+					 FontSize="16"
+					Height="{Binding ActualHeight, ElementName=EditorWin,Converter={StaticResource ReduceParam} ,ConverterParameter=190}"
+					Margin="5 5 5 0"
+					TextBlock.FontSize="16"/>
+
+		<!--#region lower panel-->
+
+		<TextBox x:Name="delfile" 
+				Grid.Row="2"
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Bottom"
+				Width="220" 
+				 Height="30"
+				 Margin="150 0 5 14" 
+				 Background="{StaticResource White4}" 
+				 ScrollViewer.CanContentScroll="true"
+				 ScrollViewer.VerticalScrollBarVisibility="Auto"
+				 AcceptsTab="True"
+				 AcceptsReturn="true"				 
+				 Padding="5 3 10 0"
+				 TextAlignment="Left"
+				 TextWrapping="NoWrap"
+				 FontSize="16"/>
+
+		
+		<Button x:Name="DeleteScript" 
+				Grid.Row="2"
+				Height="45"
+				HorizontalAlignment="Left" 
+				VerticalAlignment="Bottom"
+				Width="140" 
+				BorderBrush="{StaticResource Green5}"
+				BorderThickness="2"
+				Margin="5,0,180, 7 "
+				FontSize="17"
+				FontWeight="Bold" 
+				Click="Deletescript_Click"
+				Style="{StaticResource DiagonalRedButton}"
+				Content="Delete Script ->"
+				IsEnabled="false"
+				Opacity="0.6"
+				Foreground="{StaticResource White0}" >
+		</Button>
+
+		<Button x:Name="PrintScript" 
+				Grid.Row="2"
+				Height="45"
+				HorizontalAlignment="Right" 
+				VerticalAlignment="Bottom"
+				Width="130" 
+				BorderBrush="{StaticResource Green5}"
+				BorderThickness="2"
+				Margin="0,0,325, 7 "
+				FontSize="17"
+				FontWeight="Bold" 
+				Click="Printscript_Click"
+				Style="{StaticResource DiagonalCyanButton}"
+				Content="Print Script"
+				Foreground="{StaticResource White0}" >
+		</Button>
+
+		<Button x:Name="SaveScript" 
+				Grid.Row="2"
+				Height="45"
+				HorizontalAlignment="Right" 
+				VerticalAlignment="Bottom"
+				Width="170" 
+				BorderBrush="{StaticResource Green5}"
+				BorderThickness="2"
+				Margin="0,0,150, 7 "
+				FontSize="17"
+				FontWeight="Bold" 
+				Style="{StaticResource DiagonalCyanButton}"
+				Content="Save to SQL Server"
+				Foreground="{StaticResource White0}" 
+				Click="Savescript_Click">
+		</Button>
+
+		<Button x:Name="Closewin" 
+				Grid.Row="2"
+				Height="40"
+				HorizontalAlignment="Right" 
+				VerticalAlignment="Bottom"
+				Width="136" 
+				BorderBrush="Red"							
+				BorderThickness="2"
+				Margin="0,0,10,10" 
+				FontSize="17"
+				FontWeight="Bold" 
+				Click="Closewin_Click"
+				Style="{StaticResource DiagonalRedButton}"
+				Content="Close Window"
+				Foreground="{StaticResource White0}" />
+
+		<TextBlock x:Name="filenamebar" Grid.Row="3" Background="{StaticResource Purple4}" Foreground="White"
+				   Text="File name" TextAlignment="Center" FontSize="16" Padding="0 4 0 0"/>
+		<StatusBar x:Name="statusbar" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" 
+				   Background="Black"
+				   Height="30"
+				   Margin="0 0 20 0"
+					HorizontalAlignment="Stretch">
+
+			<TextBlock Text="Path:  " 
+					Height="30"
+					Background="{StaticResource Yellow0}" 
+					Foreground="Black" 
+					Padding="0 2 0 0"
+					FontSize="14"
+					Width="45" 
+					HorizontalAlignment="Left" 
+					TextAlignment="Right"/>
+
+			<StatusBarItem Height="30" 
+				HorizontalAlignment="Right" 
+				Width="200"  >
+
+				<TextBlock x:Name="Col0" 
+						Width="200" 
+					    MinWidth="100"
+						Height="30"
+						TextAlignment="Center"
+						Padding="0 2 0 0"
+						FontSize="14"
+						Background="{StaticResource Green6}" 
+						Foreground="Black"
+						HorizontalAlignment="Right"
+						Text="{Binding CurrentPath, UpdateSourceTrigger=PropertyChanged}"/>
+			</StatusBarItem>
+
+			<TextBlock
+					Text="Name :  " 
+					Height="30"
+					Background="{StaticResource Yellow0}" 
+					Foreground="Black" 
+					Padding="0 2 0 0"
+					FontSize="14"
+					Width="60" 
+					TextAlignment="Right"/>
+
+			<StatusBarItem>
+				<TextBlock x:Name="Col1" Width="Auto" 
+						Height="30"
+						Padding="0 1 0 0"
+						FontSize="16"
+						TextAlignment="Center"
+						Background="{StaticResource Red5}" 
+						Foreground="White"
+						HorizontalAlignment="Stretch"
+						TextOptions.TextRenderingMode="ClearType"
+						TextOptions.TextFormattingMode="Ideal"
+						Text="{Binding CurrentFile, UpdateSourceTrigger=PropertyChanged}"/>
+			</StatusBarItem>
+
+			<TextBlock Text="Chars :  " 
+					Height="30"
+					Background="{StaticResource Yellow0}" 
+					Foreground="Black" 
+					Padding="0 2 0 0"
+					FontSize="14"
+					Width="65" 
+					TextAlignment="Right"/>
+
+			<StatusBarItem>
+				<TextBlock x:Name="Col2" Width="80" 
+						Height="30"
+						Padding="0 1 0 0"
+						FontSize="16"
+						   FontWeight="DemiBold"
+						TextAlignment="Center"
+						Background="{StaticResource White2}" 
+						Foreground="Red"
+						HorizontalAlignment="Right"
+						Text="{Binding CharCount, UpdateSourceTrigger=PropertyChanged}"/>
+			</StatusBarItem>
+
+			<TextBlock Text="Lines :  " 
+					Height="30"
+					Background="{StaticResource Yellow0}" 
+					Foreground="Black" 
+					Padding="0 2 0 0"
+					FontSize="14"
+					Width="50" 
+					TextAlignment="Right"/>
+
+			<StatusBarItem>
+				<TextBlock x:Name="Col3" Width="60" 
+						Height="30"
+						Padding="0 1 0 0"
+						FontSize="16"
+						TextAlignment="Center"
+						Background="{StaticResource White2}" 
+						Foreground="Black"
+						HorizontalAlignment="Right"						   
+						Text="{Binding LineCount, UpdateSourceTrigger=PropertyChanged}"/>
+			</StatusBarItem>
+
+			<TextBlock Text="Tabs :  " 
+					Height="30"
+					Background="{StaticResource Yellow0}" 
+					Foreground="Black" 
+					Padding="0 2 0 0"
+					FontSize="14"
+					Width="50" 
+					TextAlignment="Right"/>
+
+			<StatusBarItem>
+				<TextBlock x:Name="Col4" Width="80" 
+						Height="30"
+						Padding="0 1 0 0"
+						FontSize="16"
+						TextAlignment="Center"
+						Background="{StaticResource White2}" 
+						Foreground="Black"
+						HorizontalAlignment="Right"
+						Text="{Binding TabCount, UpdateSourceTrigger=Default}"/>
+			</StatusBarItem>
+
+		</StatusBar>
+	</Grid>
+</Window>
